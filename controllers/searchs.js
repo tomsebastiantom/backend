@@ -10,13 +10,18 @@ exports.getQuestions = async (req, res, next) => {
         { path: new RegExp(`,${req.query.q},`, "i") },
       ],
     }).select("_id");
-    
-    if(!topics) {
+
+    if (!topics) {
       return next(new ErrorResponse("No topics found", 404));
     }
-    
-    const questions = await Question.find({annotations:{ "$in": topics }}).select("questionno -_id");
-    
+
+    const questions = await Question.find({
+      annotations: { $in: topics },
+    }).select("questionno -_id");
+
+    if (!questions) {
+      return next(new ErrorResponse("No topics found", 404));
+    }
 
     res.status(200).json(questions);
   } catch (err) {
