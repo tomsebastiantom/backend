@@ -14,8 +14,8 @@ exports.getQuestions = async (req, res, next) => {
     }).select("_id");
 
     //if no topics are found, return an error
-
-    if (topics.length === 0 || topics) {
+      console.log(topics);
+    if (topics.length === 0 || topics===null) {
       return next(new ErrorResponse(`No topics found for ${req.query.q}`, 404));
       
     }
