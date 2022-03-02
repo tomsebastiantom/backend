@@ -6,6 +6,8 @@ const Topic = mongoose.model(
     topic: {
       type: String,
       unique: true,
+      dropDups: true,
+      sparse: true,
     },
     path: {
       type: String,

@@ -1,10 +1,14 @@
 const { Topic } = require("../models/topics");
 const ErrorResponse = require("../utils/errorResponse");
 const { Question } = require("../models/questions");
-
+// const {questionadder,topicadder}= require("../utils/dataMigrator");
 exports.getQuestions = async (req, res, next) => {
   try {
-    //finds _id of all topics that match the search term
+    console.log(req.query.q);
+    if(!req.query.q){
+      return next(new ErrorResponse("Please provide a search query",400));
+    }
+    //  finds _id of all topics that match the search term
 
     const topics = await Topic.find({
       $or: [
@@ -14,7 +18,7 @@ exports.getQuestions = async (req, res, next) => {
     }).select("_id");
 
     //if no topics are found, return an error
-      console.log(topics);
+      // console.log(topics);
     if (topics.length === 0 || topics===null) {
       return next(new ErrorResponse(`No topics found for ${req.query.q}`, 404));
       
@@ -24,9 +28,9 @@ exports.getQuestions = async (req, res, next) => {
 
     const questions = await Question.find({
       annotations: { $in: topics },
-    }).select("questionno -_id");
+    }).select("questionno -_id").distinct("questionno");
 
-    //if no questions are found, return an error
+    // if no questions are found, return an error
 
     if (questions.length === 0 || questions === null) {
       return next(
@@ -34,9 +38,11 @@ exports.getQuestions = async (req, res, next) => {
       );
     }
 
-    //if questions are found, return them
+    // if questions are found, return them
 
     res.status(200).json(questions);
+    
+    
   } catch (err) {
     next(new ErrorResponse(`Search was unsucessful due to server error `, 500));
   }
