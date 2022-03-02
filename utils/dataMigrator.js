@@ -5011,7 +5011,6 @@ const questionadder = () => {
     const annotions = [];
 
     if (quest["Annotation 1"] != 0) {
-      
       console.log(quest["Annotation 1"]);
       getId(quest["Annotation 1"].trim())
         .then((id) => {
@@ -5025,7 +5024,6 @@ const questionadder = () => {
         .catch((err) => {});
     }
     if (quest["Annotation 2"] != 0) {
-     
       console.log(quest["Annotation 2"]);
       getId(quest["Annotation 2"].trim())
         .then((id) => {
@@ -5039,7 +5037,6 @@ const questionadder = () => {
         .catch((err) => {});
     }
     if (quest["Annotation 3"] != 0) {
-      
       console.log(quest["Annotation 3"]);
       getId(quest["Annotation 3"].trim())
         .then((id) => {
@@ -5047,13 +5044,12 @@ const questionadder = () => {
 
           createQuestion(
             { questionno: quest["Question number"] },
-            { questionno: quest["Question number"], annotations: annotions}
+            { questionno: quest["Question number"], annotations: annotions }
           );
         })
         .catch((err) => {});
     }
     if (quest["Annotation 4"] != 0) {
-     
       console.log(quest["Annotation 4"]);
       getId(quest["Annotation 4"].trim())
         .then((id) => {
@@ -5067,7 +5063,6 @@ const questionadder = () => {
         .catch((err) => {});
     }
     if (quest["Annotation 5"] != 0) {
-      
       console.log(quest["Annotation 5"]);
       getId(quest["Annotation 5"].trim())
         .then((id) => {
@@ -5081,7 +5076,6 @@ const questionadder = () => {
         .catch((err) => {});
     }
   });
-  
 };
 
 exports.topicadder = topicadder;

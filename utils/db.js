@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 MONGO_URI =
 // "mongodb://localhost:27017/";
-"mongodb+srv://tomsebastiantom:QWERTY123a@cluster1.66kzr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+"mongodb+srv://tomsebastiantom:<password>@cluster1.66kzr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
   
 const connect = () => {
   mongoose
