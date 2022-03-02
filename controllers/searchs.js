@@ -14,14 +14,24 @@ exports.getQuestions = async (req, res, next) => {
     if (!topics) {
       return next(new ErrorResponse("No topics found", 404));
     }
+    topics
+      .then(async(topics) => {
 
-    const questions = await Question.find({
-      annotations: { $in: topics },
-    }).select("questionno -_id");
 
-    if (!questions) {
-      return next(new ErrorResponse("No topics found", 404));
-    }
+        const questions = await Question.find({
+          annotations: { $in: topics },
+        }).select("questionno -_id");
+      })
+
+
+      .catch((err) => {
+
+        if (!questions) {
+          return next(new ErrorResponse("No topics found", 404));
+        }
+        return next(new ErrorResponse(err, 500));
+      });
+
 
     res.status(200).json(questions);
   } catch (err) {
