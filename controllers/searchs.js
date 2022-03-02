@@ -1,7 +1,7 @@
 const { Topic } = require("../models/topics");
 const ErrorResponse = require("../utils/errorResponse");
 const { Question } = require("../models/questions");
-// const {questionadder,topicadder}= require("../utils/dataMigrator");
+
 exports.getQuestions = async (req, res, next) => {
   try {
     console.log(req.query.q);
