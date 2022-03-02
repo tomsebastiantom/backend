@@ -15,8 +15,9 @@ exports.getQuestions = async (req, res, next) => {
 
     //if no topics are found, return an error
 
-    if (topics.length === 0 || topics === null) {
+    if (topics.length === 0 || topics) {
       return next(new ErrorResponse(`No topics found for ${req.query.q}`, 404));
+      
     }
 
     //finds all the questions that match the topics returned by topics collection

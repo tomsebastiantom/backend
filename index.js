@@ -3,7 +3,7 @@ const app = express();
 const connectDB = require('./utils/db');
 const searchs = require("./routes/searchs");
 app.use("/search", searchs);
-
+app.use(express.json());
 
 connectDB();
 
