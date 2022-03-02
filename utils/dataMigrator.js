@@ -1,3 +1,5 @@
+//all functions required to transform Questions and Topics into their respective schemas and to add those documents to the database
+
 const data = {
   Questions: [
     {
@@ -2137,12 +2139,16 @@ const data = {
 };
 
 const addEntry = async (entry) => {
-  console.log("adding entry", entry);
-
-  const scan = await Topic.create(entry);
+  //adds each topic to the topics collection
+  try {
+    await Topic.create(entry);
+  } catch {
+    console.log("Error");
+  }
 };
 
 const topicadder = () => {
+  //adds each topic to the topics collection
   data.Topics.forEach((topic) => {
     if (topic["Topic Level 1"]) {
       //const topic1 = new Topic({})
@@ -2164,19 +2170,20 @@ const topicadder = () => {
     }
   });
 };
-const getId = async (to) => {
+const getId = async (topics) => {
+  //finds _id from topics collection
   try {
-    const top = await Topic.findOne({ topic: to });
-    console.log(top._id);
-    return top._id;
+    const newtopic = await Topic.findOne({ topic: topics });
+
+    return newtopic._id;
   } catch (e) {
     console.log(e);
-    return "1234";
+    return "";
   }
 };
 
 const createQuestion = async (to, up) => {
-  
+  //create question document in questions collection
   try {
     const quest = await Question.findOneAndUpdate(to, up, {
       new: true,
@@ -2186,10 +2193,11 @@ const createQuestion = async (to, up) => {
   } catch (e) {
     console.log(e);
   }
-  
 };
 
 const questionadder = () => {
+  //adding each questions with annotations as object id from topics collection to questions collection
+
   data.Questions.forEach((quest) => {
     const annot = [];
     if (quest["Annotation 1"]) {
